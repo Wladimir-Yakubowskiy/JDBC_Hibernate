@@ -2,6 +2,8 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,10 +14,7 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-
-    public UserDaoJDBCImpl() {
-
-    }
+    private final Logger logger = LogManager.getLogger(UserDaoHibernateImpl.class);
 
     public void createUsersTable() {
         String sql = "CREATE TABLE IF NOT EXISTS User (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50), " +
@@ -24,7 +23,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
-            System.out.println("Таблица создана");
+            logger.info("Таблица создана");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -36,7 +35,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
-            System.out.println("Таблица удалена");
+            logger.info("Таблица удалена");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +50,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
-            System.out.println("Пользователь " + name + " создан.");
+            logger.info("Пользователь " + name + " создан.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -64,7 +63,7 @@ public class UserDaoJDBCImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, (int) id);
             preparedStatement.executeUpdate();
-            System.out.println("Пользователь удалён");
+            logger.info("Пользователь удалён");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -99,7 +98,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
-            System.out.println("Таблица очищена");
+            logger.info("Таблица очищена");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService {
     public void cleanUsersTable() {
         userDao.cleanUsersTable();
     }
+
+    public void printAllUsers(List<User> users) {
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
 }

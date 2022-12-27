@@ -22,11 +22,7 @@ public class Main {
         userService.saveUser("Semen4", "Fedotov4", (byte) 28);
 
 
-        List<User> users = userService.getAllUsers();
-
-        for (User user : users) {
-            System.out.println(user);
-        }
+        userService.printAllUsers(userService.getAllUsers());
 
         userService.removeUserById(3);
 
